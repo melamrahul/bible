@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Images</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.10/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans&display=swap">
+    <style>
+        /* Disable right-click context menu */
+        body {
+            font-family: 'Google Sans', sans-serif;
+            -webkit-touch-callout: none; /* Disable long press on mobile */
+            -webkit-user-select: none; /* Disable selection */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .watermark-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        a {
+    cursor: pointer;
+}
+
+       .watermark {
+    position: absolute;
+    transform: rotate(45deg); /* Rotate the watermark */
+    top: 30%; /* Adjust the position vertically */
+    left: 20%; /* Adjust the position horizontally */
+    color: rgba(255, 255, 255, 0.8); /* Adjust the color and opacity */
+    font-family: 'Google Sans', sans-serif; /* Specify font family */
+    font-size: 16px; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+    padding: 8px; /* Add padding around the text */
+    border-radius: 4px; /* Add border radius */
+    z-index: 999; /* Ensure the watermark appears on top */
+    transform-origin: center; /* Set the origin of rotation */
+}
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-5">
+        <h2 class="text-xl font-bold mb-3" style = "font-weight: bold;">Uploaded Images</h2><br>
+        <h3 class="text-xl font-bold mb-3"style = "color: #fc4454">Don't worry about your images. they are protected safely.</h3>
+        <div class="table-responsive">
+            <table class="table table-striped" id="image-table">
+                <thead>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <footer style="bottom: 30px; width: 100%; background-color: #fff; color: #333; text-align: center; padding: 10px 0;font-family: 'Google Sans', sans-serif;">
+        <p style="margin: 0; font-family: 'Google Sans', sans-serif; font-size: 18px;">© Designed by <a href="https://t.ly/irfrc" style="text-decoration: none;">Melam Rahul</a></p>
+    </footer>
+    </div>
+    <script src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <script>
+        // Disable right-click context menu
+        document.oncontextmenu = function() {
+            return false;
+        };
+
+        // Disable certain key combinations
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchImages();
+        });
+
+        function fetchImages() {
+            fetch('https://melamrahul.github.io/hub/show.php')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#image-table tbody');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.roll_number}</td>
+                            <td class="watermark-container">
+                                <div class="watermark">Image Protected by Admin</div>
+                                <img src="data:image/jpeg;base64,${item.image}" width="100" />
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
