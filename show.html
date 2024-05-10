@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +50,7 @@
         <h2 class="text-xl font-bold mb-3" style = "font-weight: bold;">Uploaded Images</h2><br>
         <h3 class="text-xl font-bold mb-3"style = "color: #fc4454">Don't worry about your images. they are protected safely.</h3>
         <div class="table-responsive">
-            <table class="table table-striped" id="image-table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Roll Number</th>
@@ -57,6 +58,38 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    $host = "sql.freedb.tech";
+                    $user = "freedb_rahuk";
+                    $pass = "Dcqg3NFxbM!pg3u";
+                    $dbname = "freedb_database1";
+
+                    $conn = new mysqli($host, $user, $pass, $dbname);
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT roll_number, image FROM images ORDER BY RIGHT(roll_number, 2)";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                           echo "<tr>";
+                            echo "<td>" . $row["roll_number"] . "</td>";
+                            // Add watermark overlay to the image
+                            echo '<td class="watermark-container">';
+                            echo '<div class="watermark">Image Protected by Admin</div>';
+                            echo '<img src="data:image/jpeg;base64,' . base64_encode($row["image"]) . '" width="100" />';
+                            echo '</td>';
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='2'>No images found.</td></tr>";
+                    }
+
+                    $conn->close();
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -66,47 +99,35 @@
     </div>
     <script src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
     <script>
-        // Disable right-click context menu
-        document.oncontextmenu = function() {
-            return false;
-        };
-
-        // Disable certain key combinations
-        document.onkeydown = function(e) {
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                return false;
-            }
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                return false;
-            }
-        };
-
-        document.addEventListener("DOMContentLoaded", function() {
-            fetchImages();
-        });
-
-        function fetchImages() {
-            fetch('https://mrahul.free.nf/show.php')
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.querySelector('#image-table tbody');
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${item.roll_number}</td>
-                            <td class="watermark-container">
-                                <div class="watermark">Image Protected by Admin</div>
-                                <img src="data:image/jpeg;base64,${item.image}" width="100" />
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
+    DisableDevtool({
+        ondevtoolopen: (type) => {
+            const info = 'devtool opened!; type =' + type;
+            // Reload the current page
+            window.location.reload();
+            window.location.href = "https://google.com";
+            alert("You can't see the Source Code"); // If you are worried about blocking the page, use console.warn(info); and open the console to view
+            
+        },
+    })
+</script>
 </body>
+<script>
+    // Disable right-click context menu
+    document.oncontextmenu = function() {
+        return false;
+    };
+
+    // Disable certain key combinations
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
+    };
+</script>
 </html>
