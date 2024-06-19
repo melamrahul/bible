@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Study Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Nunito, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #266905;
+            overflow: hidden;
+            padding: 15px;
+            height: 35px;
+            border-bottom: 3px solid #ccc;
+         }
+
+        .navbar h1 {
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            margin-top: 3px;
+            margin-left: 45px;
+            font-size: 23px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .container {
+            
+            max-width: 400px;
+            margin: 50px auto;
+            margin-left: 15px;
+            margin-right: 15px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            border: 2px solid #197afe;
+            box-shadow: 0 0 8px #197afe;
+        }
+        
+       .co {
+            max-width: 400px;
+            margin: 50px auto;
+            margin-left: 15px;
+            margin-right: 15px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            border: 0px solid #197afe;
+            box-shadow: 0 0 8px #197afe;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 6px 14px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 20px;
+            width: 200px;
+            margin-left: 17%;
+            margin-right: 28%;
+            display: block;
+            margin-top: 20px;                  
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+         .skeleton {
+      animation: pulse 1.5s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 60px;
+      margin-left: 55px;
+      width: device-width;
+    }
+     .skel-h1 {
+      animation: pulse 1.5s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 40px;
+      width: 300px;
+      margin-left: 35px;
+    }
+    
+    .skel-field {
+      animation: pulse 1.5s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 35px;
+      width: 300px;
+      margin-left: 10px;
+    }
+
+    @keyframes pulse {
+      0% {
+        background-color: #ececfd;
+      }
+      50% {
+        background-color: #d9d8fa;
+      }
+      100% {
+        background-color: #d0e8f3;
+      }
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container1" style="display: none">
+  <div class="skeleton">
+    &nbsp;
+  </div>
+  <div class="co">  
+   <h1 class="skel-h1">&nbsp;</h1><br>
+   <h1 class="skel-field">&nbsp;</h1>
+   <h1 class="skel-field">&nbsp;</h1>
+   </div>
+   </div>
+   <div id="container2" style="display: none">
+    <div class="navbar">
+        <h1>Bible Study</h1>
+    </div>
+    <div class="container">
+        <h2>Bible Study 📖</h2>
+        <p style="padding-bottom: 15px;"></p>
+        <div class="form-group">
+            <a href="https://rahul.serv00.net/bible/biblereport.php" class="button">Submit Report</a>
+        </div>
+        <br>
+        <div class="form-group">
+            <a href="https://rahul.serv00.net/bible/bibledata.php" class="button">Bible Study Data</a>
+        </div>
+    </div>
+    </div>
+    <script>
+    function showContainers() {
+    const container1 = document.getElementById('container1');
+    const container2 = document.getElementById('container2');
+
+    container1.style.display = 'none';
+    container2.style.display = 'block';
+
+    // Show container2 after a delay (5 seconds)
+    setTimeout(function() {
+      container2.style.display = 'block';
+      container1.style.display = 'none';
+    }, 2000); // 5000 milliseconds = 5 seconds
+  }
+
+  document.addEventListener('DOMContentLoaded', showContainers);
+  </script>
+</body>
+
+</html>
+
