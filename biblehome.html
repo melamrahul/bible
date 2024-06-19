@@ -167,6 +167,33 @@
 
   document.addEventListener('DOMContentLoaded', showContainers);
   </script>
+    <script>
+    // Disable right-click context menu
+    document.oncontextmenu = function() {
+        return false;
+    };
+
+    // Disable certain key combinations
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
+    };
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+    <script>
+        DisableDevtool({
+            ondevtoolopen: (type) => {
+                window.location.href = "https://www.google.com/";
+            },
+        });
+    </script>
 </body>
 
 </html>
