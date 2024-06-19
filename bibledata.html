@@ -1,14 +1,257 @@
 <!DOCTYPE html>
- <html lang="en"> 
- <head>
- <meta charset="UTF-8"> 
- <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Bible Study Data</title> 
- <style> .container { padding: 0px; } </style>
- </head> 
- <body> 
-     <div class="container" > 
-         <iframe data="https://rahul060.serv00.net/bible/bibledata.php?igu=1">
-         </iframe>
-     </div>
-</body> 
- </html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Study Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Google Sans', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #266905;
+            overflow: hidden;
+            padding: 15px;
+            height: 35px;
+            border-bottom: 3px solid #ccc;
+        }
+
+        .navbar h1 {
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            margin-top: 3px;
+            margin-left: 45px;
+            font-size: 23px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 85px auto 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            border: 2px solid #197afe;
+            box-shadow: 0 0 8px #197afe;
+            overflow-x: auto;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        /* Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 15px;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+         .skeleton {      
+      animation: pulse 1s infinite ease-in-out;
+      background-color: #ececfd;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      height: 700px;
+      width: device-width;
+    }
+     .skel-h1 {
+      animation: pulse 1s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 0px;
+      height: 70px;
+      width: 470px;
+        margin-top: 0px;
+      margin-left: 0px;
+    }
+    
+    .skel-field {
+      animation: pulse 1s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 35px;
+      width: 300px;
+      margin-top: 0px;
+      margin-left: 10px;
+    }
+
+    @keyframes pulse {
+      0% {
+        background-color: #ececfd;
+      }
+      50% {
+        background-color: #d9d8fa;
+      }
+      100% {
+        background-color: #d0e8f3;
+      }
+    }
+    </style>
+</head>
+
+<body>
+  <div id ="container1">
+    <h1 class="skel-h1">&nbsp;</h1>
+    <div class="co">
+    <h1 class="skeleton">&nbsp;</h1>
+      </div>
+ </div>
+  <div id ="container2" style="display: none">
+    <div class="navbar">
+        <h1>Bible Study Data</h1>
+    </div>
+    <div class="container">
+        <h2>Bible Study Report</h2>
+        <div class="table-wrapper">
+            <table id="bibleStudyTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div></div>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDGS4dCnRS7ywHWRBjnaOpDmL28323flw8",
+            authDomain: "melamrahul.firebaseapp.com",
+            databaseURL: "https://melamrahul-default-rtdb.firebaseio.com",
+            projectId: "melamrahul",
+            storageBucket: "melamrahul.appspot.com",
+            messagingSenderId: "721100209859",
+            appId: "1:721100209859:web:52b007dd6becf1d54c6c76",
+            measurementId: "G-8ZH6Z66ESH"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the database
+        var database = firebase.database();
+
+        // Retrieve Bible Study data based on date
+        var bibleStudyRef = database.ref('BibleStudyDetails');
+
+        // Listen for changes in the database
+        bibleStudyRef.on('value', function (snapshot) {
+            var tableBody = document.getElementById('bibleStudyTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing table rows
+
+            snapshot.forEach(function (childSnapshot) {
+                var data = childSnapshot.val();
+                var row = tableBody.insertRow();
+
+                // Populate table cells with data
+                var hostelCell = row.insertCell(0);
+                hostelCell.textContent = data.hostel_name;
+
+                var speakerCell = row.insertCell(1);
+                speakerCell.textContent = data.speaker_name;
+
+                var topicCell = row.insertCell(2);
+                topicCell.textContent = data.topic;
+
+                var stdCountCell = row.insertCell(3);
+                stdCountCell.textContent = data.std_count;
+
+                var dateCell = row.insertCell(4);
+                var dateObj = new Date(data.date);
+                var formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
+                dateCell.textContent = formattedDate;
+
+                var timeCell = row.insertCell(5);
+                timeCell.textContent = data.time;
+
+                var dayCell = row.insertCell(6);
+                dayCell.textContent = data.day;
+
+                var typeCell = row.insertCell(7);
+                typeCell.textContent = data.type;
+            });
+        });
+    </script>
+    <script>    
+    function showContainers() {
+    const container1 = document.getElementById('container1');
+    const container2 = document.getElementById('container2');
+
+    container1.style.display = 'block';
+
+    // Show container2 after a delay (5 seconds)
+    setTimeout(function() {
+      container2.style.display = 'block';
+      container1.style.display = 'none';
+    }, 2000); // 5000 milliseconds = 5 seconds
+  }
+
+  document.addEventListener('DOMContentLoaded', showContainers);
+  </script>
+</body>
+
+</html>
