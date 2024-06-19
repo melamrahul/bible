@@ -185,6 +185,52 @@
   </style>
 </head>
 <body>
+  <div id="container1">
+  <div class="skeleton">
+    &nbsp;
+  </div>
+  <div class="co">  
+   <h1 class="skel-h1">&nbsp;</h1><br>
+    <form method="post" action="">
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+       <h2 class="skel-field">&nbsp;</h2>
+       <h2 class="skel-fi">&nbsp;</h2>
+      </div>
+      <div class="form-group">
+        <h2 class="skel-h1">&nbsp;</h2>
+      </div>
+    </form>
+  </div>
+  </div>
+  <div id="container2" style="display: none">
   <div class="navbar">
     <h1>Submit Report</h1>
   </div>
@@ -286,6 +332,7 @@
         <input type="submit" name="submit" value="Submit">
       </div>
     </form>
+  </div>
   </div>
 
   <!-- Firebase App (the core Firebase SDK) -->
@@ -389,5 +436,21 @@
         }
     };
 </script>
+  <script>
+    function showContainers() {
+    const container1 = document.getElementById('container1');
+    const container2 = document.getElementById('container2');
+
+    container1.style.display = 'block';
+
+    // Show container2 after a delay (5 seconds)
+    setTimeout(function() {
+      container2.style.display = 'block';
+      container1.style.display = 'none';
+    }, 2000); // 5000 milliseconds = 5 seconds
+  }
+
+  document.addEventListener('DOMContentLoaded', showContainers);
+  </script>
 </body>
 </html>
