@@ -12,6 +12,13 @@
       margin: 0;
       padding: 0;
       background: #fff;
+      -webkit-tap-highlight-color: transparent; /* For iOS Safari */
+      tap-highlight-color: transparent; /* For other browsers */
+      -webkit-touch-callout: none; /* Disable long press on mobile */
+      -webkit-user-select: none; /* Disable selection */
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .navbar {
@@ -362,6 +369,26 @@
       });
     });
   }
+</script>
+  <script>
+    // Disable right-click context menu
+    document.oncontextmenu = function() {
+        return false;
+    };
+
+    // Disable certain key combinations
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
+    };
+    localStorage.clear();
 </script>
 </body>
 </html>
