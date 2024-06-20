@@ -21,7 +21,7 @@
             -ms-user-select: none;
             user-select: none;
         }
-
+        
         .navbar {
             position: fixed;
             top: 0;
@@ -32,7 +32,8 @@
             padding: 15px;
             height: 35px;
             border-bottom: 3px solid #ccc;
-        }
+            
+         }
 
         .navbar h1 {
             color: #fff;
@@ -43,10 +44,10 @@
             font-size: 23px;
             font-family: 'Nunito', sans-serif;
         }
-
+      
         .container {
             max-width: 1000px;
-            margin: 85px auto 50px;
+            margin: 80px auto 20px;
             padding: 20px;
             background-color: #fff;
             border-radius: 20px;
@@ -59,6 +60,20 @@
             margin-bottom: 20px;
             text-align: center;
             color: #007bff;
+            
+        }
+      
+      .cont {
+            max-width: 1000px;            
+            margin: 80px auto 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            border: 2px solid #197afe;
+            box-shadow: 0 0 8px #197afe;
+            overflow-x: auto;
+            align-items: center;                       
+           justify-content: center;
         }
 
         /* Table Styles */
@@ -104,19 +119,23 @@
             background-color: #ececfd;
             margin-top: 0px;
             margin-bottom: 0px;
-            height: 700px;
-            width: device-width;
+            height: 1000px;
+            border-radius: 0px;
+            max-width: 1000px;
         }
 
         .skel-h1 {
             animation: pulse 1s infinite ease-in-out;
             background-color: #ececfd;
-            border-radius: 0px;
-            height: 70px;
-            width: 470px;
-            margin-top: 0px;
-            margin-left: 0px;
-        }
+            border-radius:  20px;
+            height: 40px;
+            margin-left: 15%;
+            margin-right: 10%;
+            max-width: 300px;
+            margin-top: 30px;
+            
+            
+      }
 
         .skel-field {
             animation: pulse 1s infinite ease-in-out;
@@ -206,9 +225,12 @@
 </head>
 
 <body>
+     <div class="navbar">
+     <h1>Bible Study Data</h1>
+    </div> 
     <div id="container1">
-        <h1 class="skel-h1">&nbsp;</h1>
-        <div class="co">
+        <div class="cont">
+            <h1 class="skel-h1">&nbsp;</h1>
             <h1 class="skeleton">&nbsp;</h1>
         </div>
     </div>
