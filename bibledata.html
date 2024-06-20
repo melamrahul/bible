@@ -46,7 +46,7 @@
 
         .container {
             max-width: 1000px;
-            margin: 20px auto 20px;
+            margin: 85px auto 50px;
             padding: 20px;
             background-color: #fff;
             border-radius: 20px;
@@ -192,17 +192,16 @@
         .password-dialog button:hover {
             background-color: #0056b3;
         }
-        
-        .password-dialog button.cancel {
-          background-color: #dc3545;
-        }
-        
-        .password-dialog .error-message {
-    display: block;
-    color: #dc3545;
-    margin-top: 5px;
-}
 
+        .password-dialog button.cancel {
+            background-color: #dc3545;
+        }
+
+        .password-dialog .error-message {
+            display: block;
+            color: #dc3545;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
@@ -308,7 +307,7 @@
                 var dateCell = row.insertCell(4);
                 var dateObj = new Date(data.date);
                 var formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
-                dateCell                .textContent = formattedDate;
+                dateCell.textContent = formattedDate;
 
                 var timeCell = row.insertCell(5);
                 timeCell.textContent = data.time;
@@ -356,9 +355,9 @@
                     passwordDialog.style.display = 'none';
                     proceedWithEdit(row);
                 } else {
-                  passwordInput.value = '';
-                  passwordDialog.style.display = 'none';
-                   passwordDialo.style.display = 'flex';
+                    passwordInput.value = '';
+                    passwordDialog.style.display = 'none';
+                    passwordDialo.style.display = 'flex';
                 }
             };
 
@@ -367,80 +366,92 @@
                 passwordDialog.style.display = 'none';
             };
         }
-        
+
         function cancel() {
-          passwordDialo.style.display = 'none';
+            passwordDialo.style.display = 'none';
         }
+
         function proceedWithEdit(row) {
-    // Convert date format from "d/m/y" to "y-m-d" for editing
-    var dateCell = row.cells[4]; // Assuming date is the 5th cell (index 4)
-    var dateText = dateCell.textContent.trim();
-    var dateParts = dateText.split('/');
-    var formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+            row.querySelectorAll('td:not(:last-child)').forEach(function (cell, index) {
+                var input = document.createElement('input');
+                input.type = 'text';
 
-    // Replace date cell content with input field
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.value = formattedDate;
-    dateCell.textContent = '';
-    dateCell.appendChild(input);
-
-    // Hide edit button and show save button
-    row.querySelector('.edit-button').style.display = 'none';
-    row.querySelector('.save-button').style.display = 'inline-block';
-}
-
-function handleSave(event) {
-    var row = event.target.closest('tr');
-    var id = row.getAttribute('data-id');
-    var updatedData = {};
-
-    row.querySelectorAll('td:not(:last-child)').forEach(function (cell, index) {
-        var input = cell.querySelector('input');
-        if (input) {
-            var value = input.value;
-            cell.textContent = value;
-
-            // Convert date format from "y-m-d" back to "d/m/y" for Firebase update
-            if (index === 4) { // Assuming date is the 5th cell (index 4)
-                var dateParts = value.split('-');
-                var formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-                updatedData.date = formattedDate;
-            } else {
-                // Update other data without conversion
-                switch (index) {
-                    case 0:
-                        updatedData.hostel_name = value;
-                        break;
-                    case 1:
-                        updatedData.speaker_name = value;
-                        break;
-                    case 2:
-                        updatedData.topic = value;
-                        break;
-                    case 3:
-                        updatedData.std_count = value;
-                        break;
-                    case 5:
-                        updatedData.time = value;
-                        break;
-                    case 6:
-                        updatedData.day = value;
-                        break;
-                    case 7:
-                        updatedData.type = value;
-                        break;
+                if (index === 4) {
+                    // Transform date from "d/m/y" to "y-m-d"
+                    var dateParts = cell.textContent.split('/');
+                    if (dateParts.length === 3) {
+                        var day = dateParts[0].padStart(2, '0');
+                        var month = dateParts[1].padStart(2, '0');
+                        var year = dateParts[2];
+                        input.value = `${year}-${month}-${day}`;
+                    } else {
+                        input.value = cell.textContent;
+                    }
+                } else {
+                    input.value = cell.textContent;
                 }
-            }
+
+                cell.textContent = '';
+                cell.appendChild(input);
+            });
+
+            row.querySelector('.edit-button').style.display = 'none';
+            row.querySelector('.save-button').style.display = 'inline-block';
         }
-    });
 
-    row.querySelector('.edit-button').style.display = 'inline-block';
-    row.querySelector('.save-button').style.display = 'none';
+        function handleSave(event) {
+            var row = event.target.closest('tr');
+            var id = row.getAttribute('data-id');
+            var updatedData = {};
 
-    // Update the data in Firebase
-    database.ref('BibleStudyDetails/' + id).update(updatedData);
-}
+            row.querySelectorAll('td:not(:last-child)').forEach(function (cell, index) {
+                var input = cell.querySelector('input');
+                if (input) {
+                    var value = input.value;
+
+                    if (index === 4) {
+                        // Save the date in "y-m-d" format
+                        cell.textContent = value;
+                        updatedData.date = value;
+                    } else {
+                        cell.textContent = value;
+
+                        switch (index) {
+                            case 0:
+                                updatedData.hostel_name = value;
+                                break;
+                            case 1:
+                                updatedData.speaker_name = value;
+                                break;
+                            case 2:
+                                updatedData.topic = value;
+                                break;
+                            case 3:
+                                updatedData.std_count = value;
+                                break;
+                            case 5:
+                                updatedData.time = value;
+                                break;
+                            case 6:
+                                updatedData.day = value;
+                                break;
+                            case 7:
+                                updatedData.type = value;
+                                break;
+                        }
+                    }
+                }
+            });
+
+            row.querySelector('.edit-button').style.display = 'inline-block';
+            row.querySelector('.save-button').style.display = 'none';
+
+            // Update the data in Firebase
+            database.ref('BibleStudyDetails/' + id).update(updatedData).then(function () {
+                // Refresh the page after updating the data
+                location.reload();
+            });
+        }
 
         function showContainers() {
             const container1 = document.getElementById('container1');
@@ -475,15 +486,6 @@ function handleSave(event) {
             }
         };
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
-    <script>
-        DisableDevtool({
-            ondevtoolopen: (type) => {
-                window.location.href = "https://www.google.com/";
-            },
-        });
-    </script>
 </body>
 
 </html>
-
