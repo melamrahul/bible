@@ -7,7 +7,7 @@
     <title>Bible Study Report</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">
     <style>
-        /* General Styles */
+
         body {
             font-family: 'Google Sans', sans-serif;
             background-color: #f4f4f4;
@@ -96,27 +96,7 @@
     <h2 class="h22">AU ZONE Boys Bible Study Report</h2>
     <h4 class="h23">From APRIL 2024 - APRIL 2025</h4>
     <p>Dear Brothers and Sisters, Greetings to you In the name of our <strong>LORD and Saviour Jesus Christ.</strong></p>
-    <u><h3 class="side-heading">Evangelistic Bible Studies</h3></u>
-    <div class="container">
-        <div class="table-wrapper">
-            <table id="ebsTable">
-                <thead>
-                    <tr>
-                        <th>Hostel/Venue</th>
-                        <th>Speaker</th>
-                        <th>Topic or Passage Name</th>
-                        <th>Stds Att</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Day</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
-
- <u><h3 class="side-heading">Believers Bible Studies</h3></u>
+    <u><h3 class="side-heading">Believers Bible Studies</h3></u>
     <div class="container">
         <div class="table-wrapper">
             <table id="bbsTable">
@@ -135,6 +115,49 @@
             </table>
         </div>
     </div>
+
+    <u><h3 class="side-heading">Evangelistic Bible Studies</h3></u>
+    <h4 class="side-heading">EBS are Conducted in Orange Hostel, B3 Hostel(Online also)</h4>
+    <u><h3 class="side-heading">Orange Hostel</h3></u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="orangeHostelTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <u><h3 class="side-heading">B3 Hostel & Online (zoom)</h3></u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="b3ZoomTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
     <h4 class="conclusion">Your's in Christ</h4>
     <h4 class="conclusion" style="margin-right: 40px;">M.Rahul</h4>
     <h4 class="conclusion" style="margin-right: 40px;">BBS I/C</h4>
@@ -153,7 +176,7 @@
             projectId: "melamrahul",
             storageBucket: "melamrahul.appspot.com",
             messagingSenderId: "721100209859",
-            appId: "1:721100209859:web:52b007dd6becf1d54c6c76",
+            appId:  "1:721100209859:web:52b007dd6becf1d54c6c76",
             measurementId: "G-8ZH6Z66ESH"
         };
 
@@ -168,17 +191,28 @@
 
         // Listen for changes in the database
         bibleStudyRef.on('value', function(snapshot) {
-            var ebsTableBody = document.getElementById('ebsTable').getElementsByTagName('tbody')[0];
+            //var ebsTableBody = document.getElementById('ebsTable').getElementsByTagName('tbody')[0];
             var bbsTableBody = document.getElementById('bbsTable').getElementsByTagName('tbody')[0];
-            ebsTableBody.innerHTML = ''; // Clear existing table rows
+            var orangeHostelTableBody = document.getElementById('orangeHostelTable').getElementsByTagName('tbody')[0];
+            var b3ZoomTableBody = document.getElementById('b3ZoomTable').getElementsByTagName('tbody')[0];
+
+           // ebsTableBody.innerHTML = ''; // Clear existing table rows
             bbsTableBody.innerHTML = ''; // Clear existing table rows
+            orangeHostelTableBody.innerHTML = ''; // Clear existing table rows
+            b3ZoomTableBody.innerHTML = ''; // Clear existing table rows
 
             snapshot.forEach(function(childSnapshot) {
                 var data = childSnapshot.val();
                 var row;
 
                 if (data.type === 'EBS') {
-                    row = ebsTableBody.insertRow();
+                    if (data.hostel_name === "Orange hostel") {
+                        row = orangeHostelTableBody.insertRow();
+                    } else if (data.hostel_name === "B3 hostel" || data.hostel_name === "Online (zoom)") {
+                        row = b3ZoomTableBody.insertRow();
+                    } else {
+                        row = ebsTableBody.insertRow();
+                    }
                 } else if (data.type === 'BBS') {
                     row = bbsTableBody.insertRow();
                 } else {
@@ -211,25 +245,25 @@
             });
         });
     </script>
-<script>
-    // Disable right-click context menu
-    document.oncontextmenu = function() {
-        return false;
-    };
+    <script>
+        // Disable right-click context menu
+        document.oncontextmenu = function() {
+            return false;
+        };
 
-    // Disable certain key combinations
-    document.onkeydown = function(e) {
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-            return false;
-        }
-        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-            return false;
-        }
-    };
-</script>
+        // Disable certain key combinations
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
     <script>
         DisableDevtool({
