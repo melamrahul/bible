@@ -13,13 +13,13 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent; /* For iOS Safari */
-            tap-highlight-color: transparent; /* For other browsers */
-           -webkit-touch-callout: none; /* Disable long press on mobile */
-           -webkit-user-select: none; /* Disable selection */
-           -moz-user-select: none;
-           -ms-user-select: none;
-           user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .navbar {
@@ -84,99 +84,97 @@
             background-color: #f2f2f2;
         }
 
-        .button {
+        .edit-button, save-button {
             display: inline-block;
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
+            padding: 4px 8px;
+            border: 1px solid #007bff;
+            color: #000;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
             font-size: 15px;
-            margin-bottom: 20px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: auto;
             display: block;
             text-align: center;
         }
 
-        .button:hover {
-            background-color: #0056b3;
+
+        .skeleton {
+            animation: pulse 1s infinite ease-in-out;
+            background-color: #ececfd;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            height: 700px;
+            width: device-width;
         }
 
-         .skeleton {      
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-        margin-top: 0px;
-        margin-bottom: 0px;
-      height: 700px;
-      width: device-width;
-    }
-     .skel-h1 {
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-      border-radius: 0px;
-      height: 70px;
-      width: 470px;
-        margin-top: 0px;
-      margin-left: 0px;
-    }
-    
-    .skel-field {
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-      border-radius: 8px;
-      height: 35px;
-      width: 300px;
-      margin-top: 0px;
-      margin-left: 10px;
-    }
+        .skel-h1 {
+            animation: pulse 1s infinite ease-in-out;
+            background-color: #ececfd;
+            border-radius: 0px;
+            height: 70px;
+            width: 470px;
+            margin-top: 0px;
+            margin-left: 0px;
+        }
 
-    @keyframes pulse {
-      0% {
-        background-color: #ececfd;
-      }
-      50% {
-        background-color: #d9d8fa;
-      }
-      100% {
-        background-color: #d0e8f3;
-      }
-    }
+        .skel-field {
+            animation: pulse 1s infinite ease-in-out;
+            background-color: #ececfd;
+            border-radius: 8px;
+            height: 35px;
+            width: 300px;
+            margin-top: 0px;
+            margin-left: 10px;
+        }
+
+        @keyframes pulse {
+            0% {
+                background-color: #ececfd;
+            }
+            50% {
+                background-color: #d9d8fa;
+            }
+            100% {
+                background-color: #d0e8f3;
+            }
+        }
     </style>
 </head>
 
 <body>
-  <div id ="container1">
-    <h1 class="skel-h1">&nbsp;</h1>
-    <div class="co">
-    <h1 class="skeleton">&nbsp;</h1>
-      </div>
- </div>
-  <div id ="container2" style="display: none">
-    <div class="navbar">
-        <h1>Bible Study Data</h1>
-    </div>
-    <div class="container">
-        <h2>Bible Study Report</h2>
-        <div class="table-wrapper">
-            <table id="bibleStudyTable">
-                <thead>
-                    <tr>
-                        <th>Hostel/Venue</th>
-                        <th>Speaker</th>
-                        <th>Topic or Passage Name</th>
-                        <th>Stds Att</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Day</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+    <div id="container1">
+        <h1 class="skel-h1">&nbsp;</h1>
+        <div class="co">
+            <h1 class="skeleton">&nbsp;</h1>
         </div>
-    </div></div>
+    </div>
+    <div id="container2" style="display: none">
+        <div class="navbar">
+            <h1>Bible Study Data</h1>
+        </div>
+        <div class="container">
+            <h2>Bible Study Report</h2>
+            <div class="table-wrapper">
+                <table id="bibleStudyTable">
+                    <thead>
+                        <tr>
+                            <th>Hostel/Venue</th>
+                            <th>Speaker</th>
+                            <th>Topic or Passage Name</th>
+                            <th>Stds Att</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Day</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -213,6 +211,7 @@
             snapshot.forEach(function (childSnapshot) {
                 var data = childSnapshot.val();
                 var row = tableBody.insertRow();
+                row.setAttribute('data-id', childSnapshot.key);
 
                 // Populate table cells with data
                 var hostelCell = row.insertCell(0);
@@ -240,46 +239,121 @@
 
                 var typeCell = row.insertCell(7);
                 typeCell.textContent = data.type;
+
+                var actionsCell = row.insertCell(8);
+                actionsCell.innerHTML = `<button class="edit-button">Edit</button> <button class="save-button" style="display: none;">Save</button>`;
+            });
+
+            // Add event listeners to the edit and save buttons
+            document.querySelectorAll('.edit-button').forEach(function (button) {
+                button.addEventListener('click', handleEdit);
+            });
+
+            document.querySelectorAll('.save-button').forEach(function (button) {
+                button.addEventListener('click', handleSave);
             });
         });
-    </script>
-    <script>    
-    function showContainers() {
-    const container1 = document.getElementById('container1');
-    const container2 = document.getElementById('container2');
 
-    container1.style.display = 'block';
+                function handleEdit(event) {
+            var password = prompt("Rahul Says\nEnter the Password to Edit");
+            if (password !== "rahulbible") {
+                alert("Incorrect Password");
+                return;
+            }
 
-    // Show container2 after a delay (5 seconds)
-    setTimeout(function() {
-      container2.style.display = 'block';
-      container1.style.display = 'none';
-    }, 2000); // 5000 milliseconds = 5 seconds
-  }
+            var row = event.target.closest('tr');
+            row.querySelectorAll('td:not(:last-child)').forEach(function (cell) {
+                var input = document.createElement('input');
+                input.type = 'text';
+                input.value = cell.textContent;
+                cell.textContent = '';
+                cell.appendChild(input);
+            });
 
-  document.addEventListener('DOMContentLoaded', showContainers);
-  </script>
-    <script>
-    // Disable right-click context menu
-    document.oncontextmenu = function() {
-        return false;
-    };
-
-    // Disable certain key combinations
-    document.onkeydown = function(e) {
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-            return false;
+            row.querySelector('.edit-button').style.display = 'none';
+            row.querySelector('.save-button').style.display = 'inline-block';
         }
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-            return false;
+
+        function handleSave(event) {
+            var row = event.target.closest('tr');
+            var id = row.getAttribute('data-id');
+            var updatedData = {};
+
+            row.querySelectorAll('td:not(:last-child)').forEach(function (cell, index) {
+                var input = cell.querySelector('input');
+                if (input) {
+                    var value = input.value;
+                    cell.textContent = value;
+
+                    switch (index) {
+                        case 0:
+                            updatedData.hostel_name = value;
+                            break;
+                        case 1:
+                            updatedData.speaker_name = value;
+                            break;
+                        case 2:
+                            updatedData.topic = value;
+                            break;
+                        case 3:
+                            updatedData.std_count = value;
+                            break;
+                        case 4:
+                            updatedData.date = value;
+                            break;
+                        case 5:
+                            updatedData.time = value;
+                            break;
+                        case 6:
+                            updatedData.day = value;
+                            break;
+                        case 7:
+                            updatedData.type = value;
+                            break;
+                    }
+                }
+            });
+
+            row.querySelector('.edit-button').style.display = 'inline-block';
+            row.querySelector('.save-button').style.display = 'none';
+
+            // Update the data in Firebase
+            database.ref('BibleStudyDetails/' + id).update(updatedData);
         }
-        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-            return false;
+
+        function showContainers() {
+            const container1 = document.getElementById('container1');
+            const container2 = document.getElementById('container2');
+
+            container1.style.display = 'block';
+
+            // Show container2 after a delay (5 seconds)
+            setTimeout(function () {
+                container2.style.display = 'block';
+                container1.style.display = 'none';
+            }, 2000); // 5000 milliseconds = 5 seconds
         }
-    };
-</script>
-    <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
-    <script>
+
+        document.addEventListener('DOMContentLoaded', showContainers);
+
+        // Disable right-click context menu
+        document.oncontextmenu = function () {
+            return false;
+        };
+
+        // Disable certain key combinations
+        document.onkeydown = function (e) {
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        };
+
         DisableDevtool({
             ondevtoolopen: (type) => {
                 window.location.href = "https://www.google.com/";
