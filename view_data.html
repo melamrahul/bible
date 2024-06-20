@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AU ZONE Bible Study Report</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Google Sans', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            -webkit-tap-highlight-color: transparent;
+            tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 0px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .h22 {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: -10px;
+        }
+
+        .h23 {
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        p {
+            margin-left: 10px;
+        }
+        
+        .side-heading {
+          text-align: left;
+          margin-left: 10px;
+        }
+        
+        .conclusion {
+          text-align: right;
+          margin-right: 20px;
+          margin-bottom: -20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="h22">AU ZONE Boys Bible Study Report</h2>
+    <h4 class="h23">From APRIL 2024 - APRIL 2025</h4>
+    <p>Dear Brothers and Sisters, Greetings to you In the name of our <strong>LORD and Saviour Jesus Christ.</strong></p>
+    <u><h3 class="side-heading">Evangelistic Bible Studies</h3></u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="ebsTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+ <u><h3 class="side-heading">Believers Bible Studies</h3></u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="bbsTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <h4 class="conclusion">Your's in Christ</h4>
+    <h4 class="conclusion" style="margin-right: 40px;">M.Rahul</h4>
+    <h4 class="conclusion" style="margin-right: 40px;">BBS I/C</h4>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDGS4dCnRS7ywHWRBjnaOpDmL28323flw8",
+            authDomain: "melamrahul.firebaseapp.com",
+            databaseURL: "https://melamrahul-default-rtdb.firebaseio.com",
+            projectId: "melamrahul",
+            storageBucket: "melamrahul.appspot.com",
+            messagingSenderId: "721100209859",
+            appId: "1:721100209859:web:52b007dd6becf1d54c6c76",
+            measurementId: "G-8ZH6Z66ESH"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the database
+        var database = firebase.database();
+
+        // Retrieve Bible Study data based on date
+        var bibleStudyRef = database.ref('BibleStudyDetails');
+
+        // Listen for changes in the database
+        bibleStudyRef.on('value', function(snapshot) {
+            var ebsTableBody = document.getElementById('ebsTable').getElementsByTagName('tbody')[0];
+            var bbsTableBody = document.getElementById('bbsTable').getElementsByTagName('tbody')[0];
+            ebsTableBody.innerHTML = ''; // Clear existing table rows
+            bbsTableBody.innerHTML = ''; // Clear existing table rows
+
+            snapshot.forEach(function(childSnapshot) {
+                var data = childSnapshot.val();
+                var row;
+
+                if (data.type === 'EBS') {
+                    row = ebsTableBody.insertRow();
+                } else if (data.type === 'BBS') {
+                    row = bbsTableBody.insertRow();
+                } else {
+                    return; // Skip if type is neither EBS nor BBS
+                }
+
+                // Populate table cells with data
+                var hostelCell = row.insertCell(0);
+                hostelCell.textContent = data.hostel_name;
+
+                var speakerCell = row.insertCell(1);
+                speakerCell.textContent = data.speaker_name;
+
+                var topicCell = row.insertCell(2);
+                topicCell.textContent = data.topic;
+
+                var stdCountCell = row.insertCell(3);
+                stdCountCell.textContent = data.std_count;
+
+                var dateCell = row.insertCell(4);
+                var dateObj = new Date(data.date);
+                var formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
+                dateCell.textContent = formattedDate;
+
+                var timeCell = row.insertCell(5);
+                timeCell.textContent = data.time;
+
+                var dayCell = row.insertCell(6);
+                dayCell.textContent = data.day;
+            });
+        });
+    </script>
+
+</body>
+
+</html>
