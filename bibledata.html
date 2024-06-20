@@ -372,64 +372,75 @@
           passwordDialo.style.display = 'none';
         }
         function proceedWithEdit(row) {
-            row.querySelectorAll('td:not(:last-child)').forEach(function (cell) {
-                var input = document.createElement('input');
-                input.type = 'text';
-                input.value = cell.textContent;
-                cell.textContent = '';
-                cell.appendChild(input);
-            });
+    // Convert date format from "d/m/y" to "y-m-d" for editing
+    var dateCell = row.cells[4]; // Assuming date is the 5th cell (index 4)
+    var dateText = dateCell.textContent.trim();
+    var dateParts = dateText.split('/');
+    var formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
 
-            row.querySelector('.edit-button').style.display = 'none';
-            row.querySelector('.save-button').style.display = 'inline-block';
-        }
+    // Replace date cell content with input field
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.value = formattedDate;
+    dateCell.textContent = '';
+    dateCell.appendChild(input);
 
-        function handleSave(event) {
-            var row = event.target.closest('tr');
-            var id = row.getAttribute('data-id');
-            var updatedData = {};
+    // Hide edit button and show save button
+    row.querySelector('.edit-button').style.display = 'none';
+    row.querySelector('.save-button').style.display = 'inline-block';
+}
 
-            row.querySelectorAll('td:not(:last-child)').forEach(function (cell, index) {
-                var input = cell.querySelector('input');
-                if (input) {
-                    var value = input.value;
-                    cell.textContent = value;
+function handleSave(event) {
+    var row = event.target.closest('tr');
+    var id = row.getAttribute('data-id');
+    var updatedData = {};
 
-                    switch (index) {
-                        case 0:
-                            updatedData.hostel_name = value;
-                            break;
-                        case 1:
-                            updatedData.speaker_name = value;
-                            break;
-                        case 2:
-                            updatedData.topic = value;
-                            break;
-                        case 3:
-                            updatedData.std_count = value;
-                            break;
-                        case 4:
-                            updatedData.date = value;
-                            break;
-                        case 5:
-                            updatedData.time = value;
-                            break;
-                        case 6:
-                            updatedData.day = value;
-                            break;
-                        case 7:
-                            updatedData.type = value;
-                            break;
-                    }
+    row.querySelectorAll('td:not(:last-child)').forEach(function (cell, index) {
+        var input = cell.querySelector('input');
+        if (input) {
+            var value = input.value;
+            cell.textContent = value;
+
+            // Convert date format from "y-m-d" back to "d/m/y" for Firebase update
+            if (index === 4) { // Assuming date is the 5th cell (index 4)
+                var dateParts = value.split('-');
+                var formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                updatedData.date = formattedDate;
+            } else {
+                // Update other data without conversion
+                switch (index) {
+                    case 0:
+                        updatedData.hostel_name = value;
+                        break;
+                    case 1:
+                        updatedData.speaker_name = value;
+                        break;
+                    case 2:
+                        updatedData.topic = value;
+                        break;
+                    case 3:
+                        updatedData.std_count = value;
+                        break;
+                    case 5:
+                        updatedData.time = value;
+                        break;
+                    case 6:
+                        updatedData.day = value;
+                        break;
+                    case 7:
+                        updatedData.type = value;
+                        break;
                 }
-            });
-
-            row.querySelector('.edit-button').style.display = 'inline-block';
-            row.querySelector('.save-button').style.display = 'none';
-
-            // Update the data in Firebase
-            database.ref('BibleStudyDetails/' + id).update(updatedData);
+            }
         }
+    });
+
+    row.querySelector('.edit-button').style.display = 'inline-block';
+    row.querySelector('.save-button').style.display = 'none';
+
+    // Update the data in Firebase
+    database.ref('BibleStudyDetails/' + id).update(updatedData);
+}
 
         function showContainers() {
             const container1 = document.getElementById('container1');
