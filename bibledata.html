@@ -464,6 +464,14 @@
             }
         };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/disable-devtool"></script>
+    <script>
+        DisableDevtool({
+            ondevtoolopen: (type) => {
+                window.location.href = "https://www.google.com/";
+            },
+        });
+    </script>
 </body>
 
 </html>
