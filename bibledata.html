@@ -7,99 +7,174 @@
     <title>Bible Study Details</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">
     <style>
-        /* General Styles */
-        body {
-            font-family: 'Google Sans', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-            tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #266905;
-            overflow: hidden;
-            padding: 15px;
-            height: 35px;
-            border-bottom: 3px solid #ccc;
-            
-         }
-
-        .navbar h1 {
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            margin-top: 3px;
-            margin-left: 45px;
-            font-size: 23px;
-            font-family: 'Nunito', sans-serif;
-        }
+    body {
+      font-family: Nunito, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0c1319;
+    }
+    .container {
+      max-width: 400px;
+      padding: 10px;
+      margin-top: -15px;
+      margin: 0px auto;
+      background-color: #0c1319;
+      border-radius: 20px;
+    }
+    .co {
+        max-width: 400px;
+      margin-left: -65px;
+      background-color: #0c1319;
+      border-radius: 20px;
       
-        .container {
-            max-width: 1000px;
-            margin: 80px auto 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 20px;
-            border: 2px solid #197afe;
-            box-shadow: 0 0 8px #197afe;
-            overflow-x: auto;
-        }
+    }
 
-        .container h2 {
-            margin-bottom: 20px;
-            text-align: center;
-            color: #007bff;
-            
-        }
-      
-      .cont {
-            max-width: 1000px;            
-            margin: 80px auto 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 20px;
-            border: 2px solid #197afe;
-            box-shadow: 0 0 8px #197afe;
-            overflow-x: auto;
-            align-items: center;                       
-           justify-content: center;
-        }
+    .form-group {
+      margin-bottom: 20px;
+      background: #0c1319;
+      color: #0c1319;
+    }
 
-        /* Table Styles */
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      background: #0c1319;
+      color: #fff;
+      border: 1px solid #232a30;
+      border-radius: 5px;
+      box-sizing: border-box;
+      border-color: #232a30;
+      box-shadow: 0 0 2px #232a30;
+    }
+
+    .form-group input[type="submit"] {
+      background-color: #0c1319;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-group input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .custom-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+      border-color: #232a30;
+      box-shadow: 0 0 2px #232a30;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .custom-select:hover {
+      border-color: #007bff;
+    }
+
+    .custom-select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 2px #232a30;
+    }
+
+    .custom-select::after {
+      content: '\25BC';
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .skeleton {
+      animation: pulse 1s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 700px;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-top: 20px;
+      width: device-width;
+    }
+     .skel-h1 {
+      animation: pulse 1.5s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 40px;
+      width: 300px;
+      margin-left: 35px;
+    }
+    
+    .skel-field {
+      animation: pulse 1.5s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 35px;
+      width: 100px;
+      margin-left: 10px;
+    }
+     
+    .skel-fi {     
+      animation: pulse 1.5s infinite ease-in-out;
+      background-color: #ececfd;
+      border-radius: 8px;
+      height: 35px;
+      width: 300px;
+      margin-left: 10px;
+    }
+
+
+    @keyframes pulse {
+      0% {
+        background-color: #0c1319;
+      }
+      50% {
+        background-color: #777;
+      }
+      100% {
+        background-color: #aaa;
+      }
+    }
+
         .table-wrapper {
-            overflow-x: auto;
-        }
+    overflow-x: auto;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border-top: 1px solid #ddd; /* Add top border */
+}
 
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-        }
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    color: #fff;
+}
 
-        th {
-            background-color: #f2f2f2;
-        }
+th {
+    background-color: #0c1319;
+}
 
-        .edit-button,
+.edit-button,
         .save-button {
             display: inline-block;
             padding: 4px 8px;
@@ -114,54 +189,6 @@
             text-align: center;
         }
 
-        .skeleton {
-            animation: pulse 1s infinite ease-in-out;
-            background-color: #ececfd;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            height: 1000px;
-            border-radius: 0px;
-            max-width: 1000px;
-        }
-
-        .skel-h1 {
-            animation: pulse 1s infinite ease-in-out;
-            background-color: #ececfd;
-            border-radius:  20px;
-            height: 40px;
-            margin-left: 15%;
-            margin-right: 10%;
-            max-width: 300px;
-            margin-top: 30px;
-            
-            
-      }
-
-        .skel-field {
-            animation: pulse 1s infinite ease-in-out;
-            background-color: #ececfd;
-            border-radius: 8px;
-            height: 35px;
-            width: 300px;
-            margin-top: 0px;
-            margin-left: 10px;
-        }
-
-        @keyframes pulse {
-            0% {
-                background-color: #ececfd;
-            }
-
-            50% {
-                background-color: #d9d8fa;
-            }
-
-            100% {
-                background-color: #d0e8f3;
-            }
-        }
-
-        /* Password Dialog Styles */
         .password-dialog {
             display: none;
             position: fixed;
@@ -225,18 +252,13 @@
 </head>
 
 <body>
-     <div class="navbar">
-     <h1>Bible Study Data</h1>
-    </div> 
     <div id="container1">
         <div class="cont">
-            <h1 class="skel-h1">&nbsp;</h1>
             <h1 class="skeleton">&nbsp;</h1>
         </div>
     </div>
     <div id="container2" style="display: none">
         <div class="container">
-            <h2>Bible Study Report</h2>
             <div class="table-wrapper">
                 <table id="bibleStudyTable">
                     <thead>
