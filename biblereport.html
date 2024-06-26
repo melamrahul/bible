@@ -6,189 +6,166 @@
   <title>Bible Study Details</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">    
   <style>
-    body {
-      font-family: Nunito, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      -webkit-tap-highlight-color: transparent; /* For iOS Safari */
+        body {
+          font-family: Nunito, sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #0c1319;
+          -webkit-tap-highlight-color: transparent; /* For iOS Safari */
       tap-highlight-color: transparent; /* For other browsers */
       -webkit-touch-callout: none; /* Disable long press on mobile */
       -webkit-user-select: none; /* Disable selection */
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #266905;
-      padding: 15px;
-      height: 35px;
-      border-bottom: 3px solid #ccc;
-      z-index: 1000; /* Ensure navbar is on top */
-    }
-
-    .navbar h1 {
-      color: #fff;           
-      margin: 0;
-      padding: 0;
-      margin-top: 3px;
-      margin-left: 45px;
-      font-size: 23px;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: 50px 15px;
-   
-      background-color: #fff;
-      border-radius: 20px;
-      border: 2px solid #197afe;
-      box-shadow: 0 0 10px rgba(25, 122, 254, 0.3);
-    }
-
-    .container h2 {
-      margin-bottom: 20px;
-      text-align: center;
-      color: #007bff;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: bold;
-      margin-left: 10px;
-      margin-bottom: 5px;
-    }
-
-    .form-group input,
-    textarea,
-    select {
-      width: 95%;
-      padding: 10px;
-      margin-left: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      border-color: #197afe;
-      box-shadow: 0 0 2px #197afe;
-    }
-
-    .form-group input[type="submit"] {
-      background-color: #007bff;
-      color: #fff;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .form-group input[type="submit"]:hover {
-      background-color: #0056b3;
-    }
-
-    .custom-select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      border-radius: 5px;
-      box-sizing: border-box;
-      border-color: #197afe;
-      box-shadow: 0 0 2px #197afe;
-      width: 95%;
-      box-sizing: border-box;
-      cursor: pointer;
-    }
-
-    .custom-select:hover {
-      border-color: #007bff;
-    }
-
-    .custom-select:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 2px rgba(0, 123, 255, 0.5);
-    }
-
-    .custom-select::after {
-      content: '\25BC';
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    .skeleton {
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-      border-radius: 8px;
-      height: 50px;
-      margin-left: 55px;
-      margin-top: 7px;
-      width: device-width;
-    }
-
-    .skel-h1 {
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-      border-radius: 8px;
-      height: 40px;
-      width: 300px;
-      margin-left: 35px;
-    }
-
-    .skel-field {
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-      border-radius: 8px;
-      height: 35px;
-      width: 100px;
-      margin-left: 10px;
-    }
-
-    .skel-fi {     
-      animation: pulse 1s infinite ease-in-out;
-      background-color: #ececfd;
-      border-radius: 8px;
-      height: 35px;
-      width: 300px;
-      margin-left: 10px;
-    }
+        }
+        .container {
+          max-width: 400px;
+          padding: 10px;
+          margin-top: -15px;
+          margin: 0px auto;
+          background-color: #0c1319;
+          border-radius: 20px;
+        }
+        .co {
+            max-width: 400px;
+          margin: 40px auto; /* Adjust margin as needed */
+          padding: 20px;
+          background-color: #0c1319;
+          border-radius: 20px;
+          
+        }
     
-    .success-message {
+        .form-group {
+          margin-bottom: 20px;
+          background: #0c1319;
+          color: #0c1319;
+        }
+    
+        .form-group label {
+          display: block;
+          font-weight: bold;
+          color: #fff;
+          margin-bottom: 5px;
+        }
+    
+        .form-group input,
+        textarea,
+        select {
+          width: 100%;
+          padding: 10px;
+          background: #0c1319;
+          color: #fff;
+          border: 1px solid #232a30;
+          border-radius: 5px;
+          box-sizing: border-box;
+          border-color: #232a30;
+          box-shadow: 0 0 2px #232a30;
+        }
+    
+        .form-group input[type="submit"] {
+          background-color: #0c1319;
+          color: #fff;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+    
+        .form-group input[type="submit"]:hover {
+          background-color: #0056b3;
+        }
+    
+        .custom-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          border-radius: 5px;
+          box-sizing: border-box;
+          border-color: #232a30;
+          box-shadow: 0 0 2px #232a30;
+          width: 100%;
+          box-sizing: border-box;
+          cursor: pointer;
+        }
+    
+        .custom-select:hover {
+          border-color: #007bff;
+        }
+    
+        .custom-select:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 2px #232a30;
+        }
+    
+        .custom-select::after {
+          content: '\25BC';
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          pointer-events: none;
+        }
+        
+        .success-message {
             display: none;
             margin-top: 20px;
             color: green;
             font-weight: bold;
             text-align: center;
         }
-
-    @keyframes pulse {
-      0% {
-        background-color: #ececfd;
-      }
-      50% {
-        background-color: #d9d8fa;
-      }
-      100% {
-        background-color: #d0e8f3;
-      }
-    }
-  </style>
+    
+        .skeleton {
+          animation: pulse 1s infinite ease-in-out;
+          background-color: #ececfd;
+          border-radius: 8px;
+          height: 50px;
+          margin-left: 55px;
+          margin-top: 7px;
+          width: device-width;
+        }
+         .skel-h1 {
+          animation: pulse 1.5s infinite ease-in-out;
+          background-color: #ececfd;
+          border-radius: 8px;
+          height: 40px;
+          width: 300px;
+          margin-left: 35px;
+        }
+        
+        .skel-field {
+          animation: pulse 1.5s infinite ease-in-out;
+          background-color: #ececfd;
+          border-radius: 8px;
+          height: 35px;
+          width: 100px;
+          margin-left: 10px;
+        }
+         
+        .skel-fi {     
+          animation: pulse 1.5s infinite ease-in-out;
+          background-color: #ececfd;
+          border-radius: 8px;
+          height: 35px;
+          width: 300px;
+          margin-left: 10px;
+        }
+    
+    
+        @keyframes pulse {
+          0% {
+            background-color: #0c1319;
+          }
+          50% {
+            background-color: #777;
+          }
+          100% {
+            background-color: #aaa;
+          }
+        }
+    </style>
 </head>
 <body>
   <div id="container1">
-  <div class="skeleton">
-    &nbsp;
-  </div>
   <div class="co">  
    <h1 class="skel-h1">&nbsp;</h1><br>
     <form method="post" action="">
@@ -231,12 +208,7 @@
   </div>
   </div>
   <div id="container2" style="display: none">
-  <div class="navbar">
-    <h1>Submit Report</h1>
-  </div>
-  <br><br>
   <div class="container">
-    <h2>Bible Study Details</h2>
     <div class="success-message" id="successMessage">
             Data Uploaded Successfully!
   </div><br>
