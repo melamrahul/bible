@@ -7,7 +7,6 @@
     <title>Bible Study Report</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Nunito:wght@400;700&display=swap">
     <style>
-
         body {
             font-family: 'Google Sans', sans-serif;
             background-color: #f4f4f4;
@@ -51,7 +50,8 @@
             border: 1px solid #ddd;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: left;
             border: 1px solid #ddd;
@@ -78,16 +78,16 @@
         p {
             margin-left: 10px;
         }
-        
+
         .side-heading {
-          text-align: left;
-          margin-left: 10px;
+            text-align: left;
+            margin-left: 10px;
         }
-        
+
         .conclusion {
-          text-align: right;
-          margin-right: 20px;
-          margin-bottom: -20px;
+            text-align: right;
+            margin-right: 20px;
+            margin-bottom: -20px;
         }
     </style>
 </head>
@@ -96,7 +96,9 @@
     <h2 class="h22">AU ZONE Boys Bible Study Report</h2>
     <h4 class="h23">From APRIL 2024 - APRIL 2025</h4>
     <p>Dear Brothers and Sisters, Greetings to you In the name of our <strong>LORD and Saviour Jesus Christ.</strong></p>
-    <u><h3 class="side-heading">Believers Bible Studies</h3></u>
+    <u>
+        <h3 class="side-heading">Believers Bible Studies</h3>
+    </u>
     <div class="container">
         <div class="table-wrapper">
             <table id="bbsTable">
@@ -116,9 +118,13 @@
         </div>
     </div>
 
-    <u><h3 class="side-heading">Evangelistic Bible Studies</h3></u>
-    <h4 class="side-heading">EBS are Conducted in Orange Hostel, B3 Hostel(Online also)</h4>
-    <u><h3 class="side-heading">Orange Hostel</h3></u>
+    <u>
+        <h3 class="side-heading">Evangelistic Bible Studies</h3>
+    </u>
+    <h4 class="side-heading">EBS are Conducted in Orange Hostel, B1 Hostel, B2 Hostel, B3 Hostel, B6 Hostel (Online also)</h4>
+    <u>
+        <h3 class="side-heading">Orange Hostel</h3>
+    </u>
     <div class="container">
         <div class="table-wrapper">
             <table id="orangeHostelTable">
@@ -138,10 +144,78 @@
         </div>
     </div>
 
-    <u><h3 class="side-heading">B3 Hostel & Online (zoom)</h3></u>
+    <u>
+        <h3 class="side-heading">B1 Hostel</h3>
+    </u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="b1HostelTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <u>
+        <h3 class="side-heading">B2 Hostel</h3>
+    </u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="b2HostelTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <u>
+        <h3 class="side-heading">B3 Hostel & Online (zoom)</h3>
+    </u>
     <div class="container">
         <div class="table-wrapper">
             <table id="b3ZoomTable">
+                <thead>
+                    <tr>
+                        <th>Hostel/Venue</th>
+                        <th>Speaker</th>
+                        <th>Topic or Passage Name</th>
+                        <th>Stds Att</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <u>
+        <h3 class="side-heading">B6 Hostel</h3>
+    </u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table id="b6HostelTable">
                 <thead>
                     <tr>
                         <th>Hostel/Venue</th>
@@ -176,7 +250,7 @@
             projectId: "melamrahul",
             storageBucket: "melamrahul.appspot.com",
             messagingSenderId: "721100209859",
-            appId:  "1:721100209859:web:52b007dd6becf1d54c6c76",
+            appId: "1:721100209859:web:52b007dd6becf1d54c6c76",
             measurementId: "G-8ZH6Z66ESH"
         };
 
@@ -190,28 +264,36 @@
         var bibleStudyRef = database.ref('BibleStudyDetails');
 
         // Listen for changes in the database
-        bibleStudyRef.on('value', function(snapshot) {
-            //var ebsTableBody = document.getElementById('ebsTable').getElementsByTagName('tbody')[0];
+        bibleStudyRef.on('value', function (snapshot) {
             var bbsTableBody = document.getElementById('bbsTable').getElementsByTagName('tbody')[0];
             var orangeHostelTableBody = document.getElementById('orangeHostelTable').getElementsByTagName('tbody')[0];
+            var b1HostelTableBody = document.getElementById('b1HostelTable').getElementsByTagName('tbody')[0];
+            var b2HostelTableBody = document.getElementById('b2HostelTable').getElementsByTagName('tbody')[0];
             var b3ZoomTableBody = document.getElementById('b3ZoomTable').getElementsByTagName('tbody')[0];
+            var b6HostelTableBody = document.getElementById('b6HostelTable').getElementsByTagName('tbody')[0];
 
-           // ebsTableBody.innerHTML = ''; // Clear existing table rows
             bbsTableBody.innerHTML = ''; // Clear existing table rows
             orangeHostelTableBody.innerHTML = ''; // Clear existing table rows
+            b1HostelTableBody.innerHTML = ''; // Clear existing table rows
+            b2HostelTableBody.innerHTML = ''; // Clear existing table rows
             b3ZoomTableBody.innerHTML = ''; // Clear existing table rows
+            b6HostelTableBody.innerHTML = ''; // Clear existing table rows
 
-            snapshot.forEach(function(childSnapshot) {
+            snapshot.forEach(function (childSnapshot) {
                 var data = childSnapshot.val();
                 var row;
 
                 if (data.type === 'EBS') {
                     if (data.hostel_name === "Orange hostel") {
                         row = orangeHostelTableBody.insertRow();
+                    } else if (data.hostel_name === "B1 hostel") {
+                        row = b1HostelTableBody.insertRow();
+                    } else if (data.hostel_name === "B2 hostel") {
+                        row = b2HostelTableBody.insertRow();
                     } else if (data.hostel_name === "B3 hostel" || data.hostel_name === "Online (zoom)") {
                         row = b3ZoomTableBody.insertRow();
-                    } else {
-                        row = ebsTableBody.insertRow();
+                    } else if (data.hostel_name === "B6 hostel") {
+                        row = b6HostelTableBody.insertRow();
                     }
                 } else if (data.type === 'BBS') {
                     row = bbsTableBody.insertRow();
@@ -247,12 +329,12 @@
     </script>
     <script>
         // Disable right-click context menu
-        document.oncontextmenu = function() {
+        document.oncontextmenu = function () {
             return false;
         };
 
         // Disable certain key combinations
-        document.onkeydown = function(e) {
+        document.onkeydown = function (e) {
             if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
                 return false;
             }
