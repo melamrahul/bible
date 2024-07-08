@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening WhatsApp</title>
+    <script>
+        window.onload = function() {
+            window.location.href = "whatsapp://send?text=Hi%20Brother,%20Please%20Provide%20the%20Newly%20Conducted%20Bible%20Study%20Details.%20Click%20on%20below%20Link%20to%20Submit%20the%20Details..%0A%0Ahttps://rahul.serv00.net/bible/remote_submit";
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>
