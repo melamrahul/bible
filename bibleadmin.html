@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0c1319;
+            -webkit-tap-highlight-color: transparent; /* For iOS Safari */
+            tap-highlight-color: transparent; /* For other browsers */
+            -webkit-touch-callout: none; /* Disable long press on mobile */
+            -webkit-user-select: none; /* Disable selection */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .container {
+            text-align: center;
+            background: #0c1319;
+            padding: 20px;
+            height: 150px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4caf50;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #fff">Admin Page Control</h2>
+        <label class="switch">
+            <input type="checkbox" id="toggleSwitch">
+            <span class="slider"></span>
+        </label>
+        <div class="status" id="status" style="color: #fff">Page is</div>
+    </div>
+
+    <!-- Firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDGS4dCnRS7ywHWRBjnaOpDmL28323flw8",
+            authDomain: "melamrahul.firebaseapp.com",
+            databaseURL: "https://melamrahul-default-rtdb.firebaseio.com",
+            projectId: "melamrahul",
+            storageBucket: "melamrahul.appspot.com",
+            messagingSenderId: "721100209859",
+            appId: "1:721100209859:web:52b007dd6becf1d54c6c76",
+            measurementId: "G-8ZH6Z66ESH"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Reference to the database
+        var database = firebase.database();
+        var bibleStudyRef = database.ref('AdminPage');
+
+        // Toggle switch functionality
+        var toggleSwitch = document.getElementById('toggleSwitch');
+        var statusDiv = document.getElementById('status');
+
+        toggleSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                statusDiv.textContent = 'Page is Open';
+                bibleStudyRef.set(1);
+            } else {
+                statusDiv.textContent = 'Page is Closed';
+                bibleStudyRef.set(0);
+            }
+        });
+
+        // Load initial state from Firebase
+        bibleStudyRef.on('value', function(snapshot) {
+            var state = snapshot.val();
+            if (state === 1) {
+                toggleSwitch.checked = true;
+                statusDiv.textContent = 'Page is Open';
+            } else {
+                toggleSwitch.checked = false;
+                statusDiv.textContent = 'Page is Closed';
+            }
+        });
+    </script>
+</body>
+</html>
