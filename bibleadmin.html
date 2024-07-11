@@ -10,6 +10,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             background-color: #0c1319;
             -webkit-tap-highlight-color: transparent; /* For iOS Safari */
@@ -24,6 +25,7 @@
             text-align: center;
             background: #0c1319;
             padding: 20px;
+            margin-top: 20px;
             height: 150px;
             border-radius: 10px;
             box-shadow: 0 0 10px #ccc;
@@ -71,16 +73,28 @@
             margin-top: 10px;
             font-size: 16px;
         }
+        h2 {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 style="color: #fff">Admin Page Control</h2>
+        <h2>Admin Control</h2>
         <label class="switch">
-            <input type="checkbox" id="toggleSwitch">
+            <input type="checkbox" id="toggleSwitchAdmin">
             <span class="slider"></span>
         </label>
-        <div class="status" id="status" style="color: #fff">Page is</div>
+        <div class="status" id="statusAdmin">Page is</div>
+    </div>
+
+    <div class="container">
+        <h2>Docs Control</h2>
+        <label class="switch">
+            <input type="checkbox" id="toggleSwitchDocs">
+            <span class="slider"></span>
+        </label>
+        <div class="status" id="statusDocs">Page is</div>
     </div>
 
     <!-- Firebase scripts -->
@@ -101,33 +115,60 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         
-        // Reference to the database
+        // References to the database
         var database = firebase.database();
-        var bibleStudyRef = database.ref('AdminPage');
+        var adminPageRef = database.ref('AdminPage');
+        var docsControlRef = database.ref('DocsControl');
 
-        // Toggle switch functionality
-        var toggleSwitch = document.getElementById('toggleSwitch');
-        var statusDiv = document.getElementById('status');
+        // Admin Control Toggle switch functionality
+        var toggleSwitchAdmin = document.getElementById('toggleSwitchAdmin');
+        var statusAdminDiv = document.getElementById('statusAdmin');
 
-        toggleSwitch.addEventListener('change', function() {
+        toggleSwitchAdmin.addEventListener('change', function() {
             if (this.checked) {
-                statusDiv.textContent = 'Page is Open';
-                bibleStudyRef.set(1);
+                statusAdminDiv.textContent = 'Page is Open';
+                adminPageRef.set(1);
             } else {
-                statusDiv.textContent = 'Page is Closed';
-                bibleStudyRef.set(0);
+                statusAdminDiv.textContent = 'Page is Closed';
+                adminPageRef.set(0);
             }
         });
 
-        // Load initial state from Firebase
-        bibleStudyRef.on('value', function(snapshot) {
+        // Load initial state from Firebase for Admin Control
+        adminPageRef.on('value', function(snapshot) {
             var state = snapshot.val();
             if (state === 1) {
-                toggleSwitch.checked = true;
-                statusDiv.textContent = 'Page is Open';
+                toggleSwitchAdmin.checked = true;
+                statusAdminDiv.textContent = 'Page is Open';
             } else {
-                toggleSwitch.checked = false;
-                statusDiv.textContent = 'Page is Closed';
+                toggleSwitchAdmin.checked = false;
+                statusAdminDiv.textContent = 'Page is Closed';
+            }
+        });
+
+        // Docs Control Toggle switch functionality
+        var toggleSwitchDocs = document.getElementById('toggleSwitchDocs');
+        var statusDocsDiv = document.getElementById('statusDocs');
+
+        toggleSwitchDocs.addEventListener('change', function() {
+            if (this.checked) {
+                statusDocsDiv.textContent = 'Page is Open';
+                docsControlRef.set(1);
+            } else {
+                statusDocsDiv.textContent = 'Page is Closed';
+                docsControlRef.set(0);
+            }
+        });
+
+        // Load initial state from Firebase for Docs Control
+        docsControlRef.on('value', function(snapshot) {
+            var state = snapshot.val();
+            if (state === 1) {
+                toggleSwitchDocs.checked = true;
+                statusDocsDiv.textContent = 'Page is Open';
+            } else {
+                toggleSwitchDocs.checked = false;
+                statusDocsDiv.textContent = 'Page is Closed';
             }
         });
     </script>
