@@ -47,6 +47,7 @@
             width: 100%;
             border-collapse: collapse;
             margin: 0 auto;
+            border-radius: 20px;
             border: 1px solid #ddd;
         }
 
@@ -56,6 +57,9 @@
             text-align: left;
             border: 1px solid #ddd;
             text-align: center;
+        }
+        th {
+            color: #007bff;
         }
 
         th {
@@ -71,12 +75,17 @@
 
         .h23 {
             text-align: center;
+            margin-top: -2px;
             align-items: center;
             justify-content: center;
         }
 
         p {
             margin-left: 10px;
+        }
+
+        hr {
+            color: red;
         }
 
         .side-heading {
@@ -89,15 +98,24 @@
             margin-right: 20px;
             margin-bottom: -20px;
         }
+        .page-head{
+           display: flex;
+           flex-direction: row;
+           gap: 8%;
+           text-align: center;
+           align-items: center;
+           justify-content: left;
+        }
     </style>
 </head>
 
 <body>
-    <h2 class="h22">AU ZONE Boys Bible Study Report</h2>
+    <div class="page-head"><img src="https://gcdnb.pbrd.co/images/mvnYHUS1rLAN.jpg" style="width: 100px; height: 45px; align-items: left;"> 
+    <h2 style="font-weight: bold">AU ZONE Boys Bible Study Report</h2></div>
     <h4 class="h23">ACADEMIC YEAR 2024 - 2025</h4>
-    <p>Dear Brothers and Sisters, Greetings to you In the name of our <strong>LORD and Saviour Jesus Christ.</strong></p>
+    <p>Dear Brothers and Sisters, Greetings to you In the name of our <strong style="color: #b82eb3;">LORD and Saviour Jesus Christ.</strong></p>
     <u>
-        <h3 class="side-heading">Believers Bible Studies</h3>
+        <h3 class="side-heading" style="color: #10a824">Believers Bible Studies</h3>
     </u>
     <div class="container">
         <div class="table-wrapper">
@@ -117,13 +135,36 @@
             </table>
         </div>
     </div>
-
+    <br><hr style="border: 1px solid orange;"><br>
     <u>
-        <h3 class="side-heading">Evangelistic Bible Studies</h3>
+        <h3 class="side-heading" style="color: #10a824">Evangelistic Bible Studies</h3>
     </u>
     <h4 class="side-heading">EBS are Conducted in Orange Hostel,B2 Hostel, B3 Hostel (Online also)</h4>
+    
     <u>
-        <h3 class="side-heading">Orange Hostel</h3>
+      <h3 class="side-heading" style="color: #b82eb3;">Freshers Bible Studies ( B7 & Orange Hostel )</h3>
+  </u>
+  <div class="container">
+      <div class="table-wrapper">
+          <table id="freshersTable">
+              <thead>
+                  <tr>
+                      <th>Hostel/Venue</th>
+                      <th>Speaker</th>
+                      <th>Topic or Passage Name</th>
+                      <th>Stds Att</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Day</th>
+                  </tr>
+              </thead>
+              <tbody></tbody>
+          </table>
+      </div>
+  </div>
+  
+    <u>
+        <h3 class="side-heading" style="color: #b82eb3;">Orange Hostel</h3>
     </u>
     <div class="container">
         <div class="table-wrapper">
@@ -167,7 +208,7 @@
     </div>
 -->
     <u>
-        <h3 class="side-heading">B2 Hostel</h3>
+        <h3 class="side-heading" style="color: #b82eb3;">B2 Hostel</h3>
     </u>
     <div class="container">
         <div class="table-wrapper">
@@ -189,7 +230,7 @@
     </div>
 
     <u>
-        <h3 class="side-heading">B3 Hostel & Online (zoom)</h3>
+        <h3 class="side-heading" style="color: #b82eb3;">B3 Hostel & Online (zoom)</h3>
     </u>
     <div class="container">
         <div class="table-wrapper">
@@ -232,9 +273,39 @@
         </div>
     </div>
 -->
-    <h4 class="conclusion">Your's in Christ</h4>
-    <h4 class="conclusion" style="margin-right: 40px;">M.Rahul</h4>
-    <h4 class="conclusion" style="margin-right: 40px;">NORTH BOYS BBS I/C</h4>
+    <br><hr style="border: 1px solid orange;">><br>
+    <u></u>
+        <h3 class="side-heading" style="color: #b82eb3;">No. of Active <strong>EBS</strong> and <strong>BBS</strong> Cells </h3>
+    </u>
+    <div class="container">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th style="font-weight: bold;">BBS Cells</th>
+                        <th style="font-weight: bold;">EBS Cells</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>EU Room</td>
+                        <td>B2 Hostel</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>-----</td>
+                        <td>B7 & Orange Hostel (Freshers)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <h4 class="conclusion" style="color: #007bff;">Your's in Christ,</h4>
+    <h4 class="conclusion" style="margin-right: 40px; color: #b82eb3; bottom: -5px;">M.Rahul,</h4>
+    <h4 class="conclusion" style="margin-right: 5px; color: #10a824; bottom: -10px;">NORTH BOYS BBS I/C.</h4>
 
     <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -266,6 +337,7 @@
         // Listen for changes in the database
         bibleStudyRef.on('value', function (snapshot) {
             var bbsTableBody = document.getElementById('bbsTable').getElementsByTagName('tbody')[0];
+            var freshersTableBody = document.getElementById('freshersTable').getElementsByTagName('tbody')[0];
             var orangeHostelTableBody = document.getElementById('orangeHostelTable').getElementsByTagName('tbody')[0];
        //     var b1HostelTableBody = document.getElementById('b1HostelTable').getElementsByTagName('tbody')[0];
             var b2HostelTableBody = document.getElementById('b2HostelTable').getElementsByTagName('tbody')[0];
@@ -273,6 +345,7 @@
        //     var b6HostelTableBody = document.getElementById('b6HostelTable').getElementsByTagName('tbody')[0];
 
             bbsTableBody.innerHTML = ''; // Clear existing table rows
+            freshersTableBody.innerHTML = ''; // Clear existing table rows
             orangeHostelTableBody.innerHTML = ''; // Clear existing table rows
         //    b1HostelTableBody.innerHTML = ''; // Clear existing table rows
             b2HostelTableBody.innerHTML = ''; // Clear existing table rows
@@ -287,12 +360,18 @@
                     if (data.hostel_name === "Orange hostel") {
                         row = orangeHostelTableBody.insertRow();
                     } 
+                    else if (data.hostel_name.includes("B7")) {
+                        row = freshersTableBody.insertRow();
+                    }
                   /*  else if (data.hostel_name === "B1 hostel") {
                         row = b1HostelTableBody.insertRow();
                     } */
                     else if (data.hostel_name === "B2 hostel") {
                         row = b2HostelTableBody.insertRow();
                     } 
+                    else if (data.hostel_name === "B3 hostel" || data.hostel_name === "Online (zoom)") {
+                        row = b3ZoomTableBody.insertRow();
+                    }
                     else if (data.hostel_name === "B3 hostel" || data.hostel_name === "Online (zoom)") {
                         row = b3ZoomTableBody.insertRow();
                     } 
