@@ -453,7 +453,7 @@
                     stdCountCell.textContent = data.std_count;
 
                     var dateCell = row.insertCell(4);
-                    var formattedDate = ${recordDate.getDate()}/${recordDate.getMonth() + 1}/${recordDate.getFullYear()};
+                    var formattedDate = `${recordDate.getDate()}/${recordDate.getMonth() + 1}/${recordDate.getFullYear()}`;
                     dateCell.textContent = formattedDate;
 
                     var timeCell = row.insertCell(5);
